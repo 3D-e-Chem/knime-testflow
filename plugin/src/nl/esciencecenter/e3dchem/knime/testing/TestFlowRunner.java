@@ -157,9 +157,11 @@ public class TestFlowRunner {
 		workflowUncaughtExceptionsTest.run(collector);
 
 		// WorkflowMemLeakTest
-		WorkflowMemLeakTest workflowMemLeakTest = new WorkflowMemLeakTest(workflowName, monitor, m_runConfiguration,
-				m_context);
-		workflowMemLeakTest.run(collector);
+		if (m_runConfiguration.isCheckMemoryLeaks()) {
+			WorkflowMemLeakTest workflowMemLeakTest = new WorkflowMemLeakTest(workflowName, monitor, m_runConfiguration,
+					m_context);
+			workflowMemLeakTest.run(collector);
+		}
 	}
 
 }
