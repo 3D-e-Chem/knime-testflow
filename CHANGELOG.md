@@ -7,7 +7,7 @@ The file is formatted as described on http://keepachangelog.com/.
 
 ## [1.0.0] - 2016-06-17
 
-Initial release
+Initial release.
 
 ### Added
 

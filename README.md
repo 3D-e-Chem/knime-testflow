@@ -1,6 +1,7 @@
 Test Knime workflows from a Junit test.
 
 [![Build Status](https://travis-ci.org/3D-e-Chem/knime-testflow.svg?branch=master)](https://travis-ci.org/3D-e-Chem/knime-testflow)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba09652161144d9abbe4827fd16bbaec)](https://www.codacy.com/app/3D-e-Chem/knime-testflow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3D-e-Chem/knime-testflow&amp;utm_campaign=Badge_Grade)
 
 The Knime Testing Framework can run a test workflow either:
 * Inside Knime, if you right-click on a workflow in your local workspace, you can select "Run as workflow test".
