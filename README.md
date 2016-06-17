@@ -2,9 +2,13 @@ Test Knime workflows from a Junit test.
 
 [![Build Status](https://travis-ci.org/3D-e-Chem/knime-testflow.svg?branch=master)](https://travis-ci.org/3D-e-Chem/knime-testflow)
 
-This project uses [Eclipse Tycho](https://www.eclipse.org/tycho/) to perform build steps.
+The Knime Testing Framework can run a test workflow either:
+* Inside Knime, if you right-click on a workflow in your local workspace, you can select "Run as workflow test".
+* From the command line, using `knime -application org.knime.testing.NGTestflowRunner -root <workflow dir>`.
 
-Used to test nodes by running a workflow straight in a Junit test.
+This repo gives you another option run a test workflow inside of a Junit @Test method declaration.
+
+This project uses [Eclipse Tycho](https://www.eclipse.org/tycho/) to perform build steps.
 
 # Usage
 
@@ -68,8 +72,6 @@ runConfiguration.setReportDeprecatedNodes(true);
 runConfiguration.setCheckMemoryLeaks(true);
 ```
 
-
-
 ## 5. Run tests
 
 ```
@@ -84,7 +86,7 @@ As you might have noticed during the previouse step, running test will quickly s
 To show graphical user elements an X-server is required, sadly Travis-CI does not run an X-server. 
 A temporary X-server can be run with Xvfb, which is luckily available on all Travis-CI environments.
 
-Prepend `mvn verify` command in the `.travis.yml` file with `xvfb-run`.
+Prepend `xvfb-run` before the `mvn verify` command in the `.travis.yml` file.
 
 For example
 ```
