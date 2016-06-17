@@ -32,126 +32,134 @@ import nl.esciencecenter.e3dchem.knime.testing.core.ng.WorkflowUncaughtException
 /**
  * Runner which will execute a single workflow and perform test checks.
  * 
- * Based on org.knime.testing.core.ng.TestflowRunnerApplication and WorkflowTestSuite
+ * Based on org.knime.testing.core.ng.TestflowRunnerApplication and
+ * WorkflowTestSuite
  * 
- * Because that class is not exported by org.knime.testing plugin we copied the reusable classes to here.
+ * Because that class is not exported by org.knime.testing plugin we copied the
+ * reusable classes to here.
  * 
- * The TestflowRunnerApplication implementation is running the test harness it conflicts with the tycho test harness,
- * , this implementation reports errors using the Junit error collector instead of writing it own xml files. 
+ * The TestflowRunnerApplication implementation is running the test harness it
+ * conflicts with the tycho test harness, , this implementation reports errors
+ * using the Junit error collector instead of writing it own xml files.
  *
- * Differences from TestflowRunnerApplication CLI arguments vs TestrunConfiguration flags
- * * -include replaced by Tycho test selection
- * * -root replaced with single workflow directory call to runTestWorkflow
- * * -server, not implemented 
- * * -xmlResult and -xmlResultDir replace with Tycho surefire reports
- * * -outputToSeparateFile, not implemented, use surefire report for stdout/stderr
- * * -loadSaveLoad, not implemented
- * * -untestedNodes, not implemented
- * * -timeout, can be replaced with tycho forkedProcessTimeoutInSeconds parameter
- * * -stacktraceOnTimeout, replaced with maven -e flag
- * * -preferences, not implemented
- * * -workflow.variable, not implemented 
+ * Differences from TestflowRunnerApplication CLI arguments vs
+ * TestrunConfiguration flags * -include replaced by Tycho test selection *
+ * -root replaced with single workflow directory call to runTestWorkflow *
+ * -server, not implemented * -xmlResult and -xmlResultDir replace with Tycho
+ * surefire reports * -outputToSeparateFile, not implemented, use surefire
+ * report for stdout/stderr * -loadSaveLoad, not implemented * -untestedNodes,
+ * not implemented * -timeout, can be replaced with tycho
+ * forkedProcessTimeoutInSeconds parameter * -stacktraceOnTimeout, replaced with
+ * maven -e flag * -preferences, not implemented * -workflow.variable, not
+ * implemented
  */
 public class TestFlowRunner {
 	private ErrorCollector collector = new ErrorCollector();
-	private WorkflowTestContext m_context;
 	private TestrunConfiguration m_runConfiguration;
-	
+
 	public TestFlowRunner(ErrorCollector collector, TestrunConfiguration runConfiguration) {
 		super();
 		this.collector = collector;
 		this.m_runConfiguration = runConfiguration;
-        if (m_runConfiguration.isLoadSaveLoad()) {
-        	throw new UnsupportedOperationException("LoadSaveLoad is not supported");
-        }
+		if (m_runConfiguration.isLoadSaveLoad()) {
+			throw new UnsupportedOperationException("LoadSaveLoad is not supported");
+		}
 	}
 
 	public void runTestWorkflow(File workflowDir) throws IOException, InvalidSettingsException,
 			CanceledExecutionException, UnsupportedWorkflowVersionException, LockFailedException, InterruptedException {
 		File testcaseRoot = workflowDir;
-        String workflowName = workflowDir.getName();
-        IProgressMonitor monitor = null;
+		String workflowName = workflowDir.getName();
+		IProgressMonitor monitor = null;
 
-        // this is to load the repository plug-in
-        RepositoryManager.INSTANCE.toString();
-        // and this initialized the image repository in the main thread; otherwise resolving old node factories
-        // in FileSingleNodeContainerPersistor will fail (see bug# 4464)
-        ImageRepository.getImage(SharedImages.Busy);
+		// this is to load the repository plug-in
+		RepositoryManager.INSTANCE.toString();
+		// and this initialized the image repository in the main thread;
+		// otherwise resolving old node factories
+		// in FileSingleNodeContainerPersistor will fail (see bug# 4464)
+		ImageRepository.getImage(SharedImages.Busy);
 
-        m_context = new WorkflowTestContext(m_runConfiguration);
+		WorkflowTestContext m_context = new WorkflowTestContext(m_runConfiguration);
 
-        WorkflowLogMessagesTest workflowLogMessagesTest;
-    	workflowLogMessagesTest = new WorkflowLogMessagesTest();
-        if (m_runConfiguration.isCheckLogMessages()) {
-        	workflowLogMessagesTest.aboutToStart();
-        }
-        
-        WorkflowUncaughtExceptionsTest workflowUncaughtExceptionsTest = new WorkflowUncaughtExceptionsTest(workflowName, monitor, m_context);
-        workflowUncaughtExceptionsTest.aboutToStart();
-        
-        WorkflowLoadTest workflowLoadTest = new WorkflowLoadTest(workflowDir, testcaseRoot, workflowName, monitor, m_runConfiguration, m_context);
-        workflowLoadTest.run(collector);
+		WorkflowLogMessagesTest workflowLogMessagesTest;
+		workflowLogMessagesTest = new WorkflowLogMessagesTest();
+		if (m_runConfiguration.isCheckLogMessages()) {
+			workflowLogMessagesTest.aboutToStart();
+		}
 
-        // WorkflowDeprecationTest
-        if (m_runConfiguration.isReportDeprecatedNodes()) {
-        	WorkflowDeprecationTest workflowDeprecationTest = new WorkflowDeprecationTest(workflowName, monitor, m_context);
-        	workflowDeprecationTest.run(collector);
-        }
-        
-        // WorkflowOpenViewsTest
-        if (m_runConfiguration.isTestViews()) {
-        	WorkflowOpenViewsTest workflowOpenViewsTest = new WorkflowOpenViewsTest(workflowName, monitor, m_context);
-        	workflowOpenViewsTest.run(collector);
-        }
-        
-        WorkflowExecuteTest workflowExecuteTest = new WorkflowExecuteTest(workflowName, monitor, m_context, m_runConfiguration);
-        workflowExecuteTest.run(collector);
+		WorkflowUncaughtExceptionsTest workflowUncaughtExceptionsTest = new WorkflowUncaughtExceptionsTest(workflowName,
+				monitor, m_context);
+		workflowUncaughtExceptionsTest.aboutToStart();
 
-        if (m_runConfiguration.isCheckNodeMessages()) {
-        	WorkflowNodeMessagesTest workflowNodeMessagesTest = new WorkflowNodeMessagesTest(workflowName, monitor, m_context);
-        	workflowNodeMessagesTest.run(collector);
-        }
+		WorkflowLoadTest workflowLoadTest = new WorkflowLoadTest(workflowDir, testcaseRoot, workflowName, monitor,
+				m_runConfiguration, m_context);
+		workflowLoadTest.run(collector);
 
-        // WorkflowDialogsTest 
-        if (m_runConfiguration.isTestDialogs()) {
-        	WorkflowDialogsTest workflowDialogsTest = new WorkflowDialogsTest(workflowName, monitor, m_context);
-        	workflowDialogsTest.run(collector);
-        }
+		// WorkflowDeprecationTest
+		if (m_runConfiguration.isReportDeprecatedNodes()) {
+			WorkflowDeprecationTest workflowDeprecationTest = new WorkflowDeprecationTest(workflowName, monitor,
+					m_context);
+			workflowDeprecationTest.run(collector);
+		}
 
-        // WorkflowHiliteTest 
-        WorkflowHiliteTest workflowHiliteTest = new WorkflowHiliteTest(workflowName, monitor, m_context);
-        workflowHiliteTest.run(collector);
-        
-        // WorkflowCloseViewsTest
-        if (m_runConfiguration.isTestViews()) {
-        	WorkflowCloseViewsTest workflowCloseViewsTest = new WorkflowCloseViewsTest(workflowName, monitor, m_context);
-        	workflowCloseViewsTest.run(collector);
-        }
-        
-        // save
-        File saveLocation = m_runConfiguration.getSaveLocation();
-        if (saveLocation != null) {
-        	WorkflowSaveTest workflowSaveTest = new WorkflowSaveTest(workflowName, monitor, saveLocation, m_context);
-        	workflowSaveTest.run(collector);
-        }
+		// WorkflowOpenViewsTest
+		if (m_runConfiguration.isTestViews()) {
+			WorkflowOpenViewsTest workflowOpenViewsTest = new WorkflowOpenViewsTest(workflowName, monitor, m_context);
+			workflowOpenViewsTest.run(collector);
+		}
 
-        // WorkflowCloseTest 
-        if (m_runConfiguration.isCloseWorkflowAfterTest()) {
-        	WorkflowCloseTest workflowCloseTest = new WorkflowCloseTest();
-        	workflowCloseTest.run(collector, m_context);
-        }
+		WorkflowExecuteTest workflowExecuteTest = new WorkflowExecuteTest(workflowName, monitor, m_context,
+				m_runConfiguration);
+		workflowExecuteTest.run(collector);
 
-        // WorkflowLogMessagesTest 
-        if (m_runConfiguration.isCheckLogMessages()) {
-        	workflowLogMessagesTest.run(collector, m_context.getTestflowConfiguration());
-        }
+		if (m_runConfiguration.isCheckNodeMessages()) {
+			WorkflowNodeMessagesTest workflowNodeMessagesTest = new WorkflowNodeMessagesTest(workflowName, monitor,
+					m_context);
+			workflowNodeMessagesTest.run(collector);
+		}
 
-        // WorkflowUncaughtExceptionsTest 
-        workflowUncaughtExceptionsTest.run(collector);
+		// WorkflowDialogsTest
+		if (m_runConfiguration.isTestDialogs()) {
+			WorkflowDialogsTest workflowDialogsTest = new WorkflowDialogsTest(workflowName, monitor, m_context);
+			workflowDialogsTest.run(collector);
+		}
 
-        // WorkflowMemLeakTest 
-        WorkflowMemLeakTest workflowMemLeakTest = new WorkflowMemLeakTest(workflowName, monitor, m_runConfiguration, m_context);
-        workflowMemLeakTest.run(collector);
+		// WorkflowHiliteTest
+		WorkflowHiliteTest workflowHiliteTest = new WorkflowHiliteTest(workflowName, monitor, m_context);
+		workflowHiliteTest.run(collector);
+
+		// WorkflowCloseViewsTest
+		if (m_runConfiguration.isTestViews()) {
+			WorkflowCloseViewsTest workflowCloseViewsTest = new WorkflowCloseViewsTest(workflowName, monitor,
+					m_context);
+			workflowCloseViewsTest.run(collector);
+		}
+
+		// save
+		File saveLocation = m_runConfiguration.getSaveLocation();
+		if (saveLocation != null) {
+			WorkflowSaveTest workflowSaveTest = new WorkflowSaveTest(workflowName, monitor, saveLocation, m_context);
+			workflowSaveTest.run(collector);
+		}
+
+		// WorkflowCloseTest
+		if (m_runConfiguration.isCloseWorkflowAfterTest()) {
+			WorkflowCloseTest workflowCloseTest = new WorkflowCloseTest();
+			workflowCloseTest.run(collector, m_context);
+		}
+
+		// WorkflowLogMessagesTest
+		if (m_runConfiguration.isCheckLogMessages()) {
+			workflowLogMessagesTest.run(collector, m_context.getTestflowConfiguration());
+		}
+
+		// WorkflowUncaughtExceptionsTest
+		workflowUncaughtExceptionsTest.run(collector);
+
+		// WorkflowMemLeakTest
+		WorkflowMemLeakTest workflowMemLeakTest = new WorkflowMemLeakTest(workflowName, monitor, m_runConfiguration,
+				m_context);
+		workflowMemLeakTest.run(collector);
 	}
-    
+
 }
