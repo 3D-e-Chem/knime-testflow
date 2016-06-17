@@ -57,6 +57,7 @@ public class TestFlowRunnerTest {
 		runConfiguration.setCheckForLoadWarnings(true);
 		runConfiguration.setCheckLogMessages(true);
 		runConfiguration.setCheckMemoryLeaks(true);
+		runConfiguration.setAllowedMemoryIncrease(10485760);
 		runConfiguration.setCheckNodeMessages(true);
 		runConfiguration.setCloseWorkflowAfterTest(true);
 		runConfiguration.setReportDeprecatedNodes(true);
