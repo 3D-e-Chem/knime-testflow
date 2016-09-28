@@ -34,6 +34,7 @@ To make use of in a Tycho based project add to the `<repositories>` tag of the `
 In the `Require-Bundle` attribute of the `META-INF/MANIFEST.MF` of the tests module add
 ```
 nl.esciencecenter.e3dchem.knime.testing.plugin;bundle-version="[1.0.0,2.0.0)",
+org.knime.testing;bundle-version="[3.1.0,4.0.0)",
 ```
 
 ## 3. Add test workflow
