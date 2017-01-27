@@ -39,7 +39,7 @@ org.knime.testing;bundle-version="[3.1.0,4.0.0)",
 
 ## 3. Add test workflow
 
-Create a test workflow as described in the "Testing Framework" manual that you get when you install the "KNIME Testing Framework" (look in plugins/org.knime.testing_x.y.z/Regression Tests.pdf).
+Create a test workflow as described in the "Testing Framework" manual that you get when you install the "KNIME Testing Framework" (look in plugins/org.knime.testing_x.y.z/doc/Regression Tests.pdf).
 
 Place the workflow as a directory inside the `src/knime/` directory of the tests module.
 
