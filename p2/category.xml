@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin" version="1.0.0">
+   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin" version="1.0.1">
       <category name="nl.esciencecenter.3D-e-Chem"/>
    </bundle>
-   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin.source" version="1.0.0">
+   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin.source" version="1.0.1">
       <category name="nl.esciencecenter.3D-e-Chem.sources"/>
    </bundle>
    <category-def name="nl.esciencecenter.3D-e-Chem" label="KNIME 3D-e-Chem Contributions">

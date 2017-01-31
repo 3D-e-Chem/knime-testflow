@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>nl.esciencecenter.e3dchem.knime.testing</groupId>
 		<artifactId>nl.esciencecenter.e3dchem.knime.testing</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 	<artifactId>nl.esciencecenter.e3dchem.knime.testing.plugin</artifactId>
 	<packaging>eclipse-plugin</packaging>
