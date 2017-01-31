@@ -48,7 +48,9 @@
 package nl.esciencecenter.e3dchem.knime.testing.core.ng;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.Executor;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -96,25 +98,75 @@ public class WorkflowDialogsTest extends WorkflowTest {
                 } else {
                     LOGGER.debug("Opening dialog of node " + ((SingleNodeContainer)node).getName());
                     final AtomicReference<Exception> exRef = new AtomicReference<Exception>();
-                    SwingUtilities.invokeAndWait(new Runnable() {
-                        @Override
-                        public void run() {
-                            final JFrame testFrame = new JFrame("Dialog for " + node.getName());
-                            try {
-                                NodeDialogPane dlg = node.getDialogPaneWithSettings();
-                                testFrame.getContentPane().add(dlg.getPanel());
-                                testFrame.pack();
-                                testFrame.setVisible(true);
-                                NodeSettings settings = new NodeSettings("bla");
-                                dlg.finishEditingAndSaveSettingsTo(settings);
-                                dlg.callOnClose();
-                            } catch (Exception ex) {
-                                exRef.set(ex);
-                            } finally {
-                                testFrame.dispose();
+                    final AtomicBoolean ready = new AtomicBoolean(false);
+
+                    // Mac workaround due to X running in main thread
+                    boolean isOSX = System.getProperty("os.name").startsWith("Mac");
+                    if (isOSX) {
+                        Executor executor = null;
+                        try {
+                            Class<?> dispatchClass = Class.forName("com.apple.concurrent.Dispatch");
+                            Object dispatchInstance = dispatchClass.getMethod("getInstance").invoke(null);
+                            executor = (Executor) dispatchClass.getMethod("getNonBlockingMainQueueExecutor").invoke(dispatchInstance);
+                        } catch (Throwable t) {
+                            // error log
+                        }
+                        synchronized(ready) {
+                            if (executor != null){
+                                executor.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        final JFrame testFrame = new JFrame("Dialog for " + node.getName());
+                                        try {
+                                            NodeDialogPane dlg = node.getDialogPaneWithSettings();
+                                            testFrame.getContentPane().add(dlg.getPanel());
+                                            testFrame.pack();
+                                            testFrame.setVisible(true);
+                                            NodeSettings settings = new NodeSettings("bla");
+                                            dlg.finishEditingAndSaveSettingsTo(settings);
+                                            dlg.callOnClose();
+                                        } catch (Exception ex) {
+                                            exRef.set(ex);
+                                        } finally {
+                                            synchronized(ready) {
+                                                ready.set(true);
+                                                ready.notify();
+                                            }
+                                        }
+                                    }
+                                });
+                            } else {
+                                throw new IllegalStateException("OSX: Could not start Non-blocking main queue executor.");
+                            }
+
+                            while(!ready.get()) {
+                                try {
+                                    ready.wait();
+                                } catch (InterruptedException e) { System.out.println("Interrupted");}
                             }
                         }
-                    });
+                    } else { // Non-Mac
+                        SwingUtilities.invokeAndWait(new Runnable() {
+                            @Override
+                            public void run() {
+                                final JFrame testFrame = new JFrame("Dialog for " + node.getName());
+                                try {
+                                    NodeDialogPane dlg = node.getDialogPaneWithSettings();
+                                    testFrame.getContentPane().add(dlg.getPanel());
+                                    testFrame.pack();
+                                    testFrame.setVisible(true);
+                                    NodeSettings settings = new NodeSettings("bla");
+                                    dlg.finishEditingAndSaveSettingsTo(settings);
+                                    dlg.callOnClose();
+                                } catch (Exception ex) {
+                                    exRef.set(ex);
+                                } finally {
+                                    testFrame.dispose();
+                                }
+                            }
+                        }); 
+                    }
+
                     if (exRef.get() != null) {
                         String msg =
                                 "Dialog of node '" + node.getNameWithID() + "' has thrown an "
