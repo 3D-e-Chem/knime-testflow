@@ -5,9 +5,12 @@ The file is formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
 
+## [1.0.2] - 2017-03-07
+
 ### Fixes
 
 - Disabling check log message will leak log into next test (#5)
+- NoSuchMethodError setMountpointRoot (#4)
 
 ## [1.0.1] - 2017-01-31
 
