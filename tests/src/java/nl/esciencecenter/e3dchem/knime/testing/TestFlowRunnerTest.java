@@ -63,6 +63,7 @@ public class TestFlowRunnerTest {
 		runConfiguration.setReportDeprecatedNodes(true);
 		runConfiguration.setTestDialogs(true);
 		runConfiguration.setTestViews(true);
+		runConfiguration.setLoadSaveLoad(false);
 		File workflow = new File("src/knime/gold");
 		List<String> expected = new ArrayList<String>();
 
@@ -101,13 +102,14 @@ public class TestFlowRunnerTest {
 
 		runner.runTestWorkflow(workflow);
 
-		assertEquals(collector.messages, expected);
+		assertEquals(expected, collector.messages);
 	}
 
 	private void assertWorkflowErrors(File workflow, List<String> expected)
 			throws IOException, InvalidSettingsException, CanceledExecutionException,
 			UnsupportedWorkflowVersionException, LockFailedException, InterruptedException {
 		TestrunConfiguration runConfiguration = new TestrunConfiguration();
+		runConfiguration.setLoadSaveLoad(false);
 		assertWorkflowErrors(runConfiguration, workflow, expected);
 	}
 }
