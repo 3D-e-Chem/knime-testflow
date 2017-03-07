@@ -88,6 +88,7 @@ public class TestFlowRunnerTest {
 		TestrunConfiguration runConfiguration = new TestrunConfiguration();
 		runConfiguration.setCheckLogMessages(false);
 		runConfiguration.setCheckNodeMessages(false);
+		runConfiguration.setLoadSaveLoad(false);
 		File workflow = new File("src/knime/messages");
 		List<String> expected = new ArrayList<String>();
 
