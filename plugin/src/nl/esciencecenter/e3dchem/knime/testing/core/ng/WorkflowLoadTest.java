@@ -65,69 +65,85 @@ import org.knime.core.util.LockFailedException;
 import org.knime.testing.core.TestrunConfiguration;
 
 /**
- * Testcase that monitors loading a workflow. Errors and if desired also warnings during load are reported as failures.
+ * Testcase that monitors loading a workflow. Errors and if desired also
+ * warnings during load are reported as failures.
  *
  * @author Thorsten Meinl, KNIME.com, Zurich, Switzerland
  */
 public class WorkflowLoadTest extends WorkflowTest {
-    private final File m_workflowDir;
+	private final File m_workflowDir;
 
-    private final File m_testcaseRoot;
+	private final File m_testcaseRoot;
 
-    private final TestrunConfiguration m_runConfiguration;
+	private final TestrunConfiguration m_runConfiguration;
 
-    /**
-     * Creates a new test for loading a workflow.
-     *
-     * @param workflowDir the workflow dir
-     * @param testcaseRoot root directory of all test workflows; this is used as a replacement for the mount point root
-     * @param workflowName a unique name for the workflow
-     * @param monitor a progress monitor, may be <code>null</code>
-     * @param runConfiguration the run configuration
-     * @param context the test context, must not be <code>null</code>
-     */
-    public WorkflowLoadTest(final File workflowDir, final File testcaseRoot, final String workflowName,
-        final IProgressMonitor monitor, final TestrunConfiguration runConfiguration, final WorkflowTestContext context) {
-        super(workflowName, monitor, context);
-        m_workflowDir = workflowDir;
-        m_testcaseRoot = testcaseRoot;
-        m_runConfiguration = runConfiguration;
-    }
+	/**
+	 * Creates a new test for loading a workflow.
+	 *
+	 * @param workflowDir
+	 *            the workflow dir
+	 * @param testcaseRoot
+	 *            root directory of all test workflows; this is used as a
+	 *            replacement for the mount point root
+	 * @param workflowName
+	 *            a unique name for the workflow
+	 * @param monitor
+	 *            a progress monitor, may be <code>null</code>
+	 * @param runConfiguration
+	 *            the run configuration
+	 * @param context
+	 *            the test context, must not be <code>null</code>
+	 */
+	public WorkflowLoadTest(final File workflowDir, final File testcaseRoot, final String workflowName,
+			final IProgressMonitor monitor, final TestrunConfiguration runConfiguration,
+			final WorkflowTestContext context) {
+		super(workflowName, monitor, context);
+		m_workflowDir = workflowDir;
+		m_testcaseRoot = testcaseRoot;
+		m_runConfiguration = runConfiguration;
+	}
 
-    public void run(final ErrorCollector collector) {
-        try {
-            m_context.setWorkflowManager(loadWorkflow(this, collector, m_workflowDir, m_testcaseRoot, m_runConfiguration));
-        } catch (Throwable t) {
-        	collector.addError(t);
-        }
-    }
+	public void run(final ErrorCollector collector) {
+		try {
+			m_context.setWorkflowManager(
+					loadWorkflow(this, collector, m_workflowDir, m_testcaseRoot, m_runConfiguration));
+		} catch (Throwable t) {
+			collector.addError(t);
+		}
+	}
 
-    static WorkflowManager loadWorkflow(final WorkflowTest test, final ErrorCollector collector, final File workflowDir,
-        final File testcaseRoot, final TestrunConfiguration runConfig) throws IOException, InvalidSettingsException,
-        CanceledExecutionException, UnsupportedWorkflowVersionException, LockFailedException {
-        WorkflowLoadHelper loadHelper = new WorkflowLoadHelper() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public WorkflowContext getWorkflowContext() {
-                WorkflowContext.Factory fac = new WorkflowContext.Factory(workflowDir);
-                fac.setMountpointRoot(testcaseRoot);
-                return fac.createContext();
-            }
-        };
+	static WorkflowManager loadWorkflow(final WorkflowTest test, final ErrorCollector collector, final File workflowDir,
+			final File testcaseRoot, final TestrunConfiguration runConfig) throws IOException, InvalidSettingsException,
+			CanceledExecutionException, UnsupportedWorkflowVersionException, LockFailedException {
+		WorkflowLoadHelper loadHelper = new WorkflowLoadHelper() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public WorkflowContext getWorkflowContext() {
+				WorkflowContext.Factory fac = new WorkflowContext.Factory(workflowDir);
+				try {
+					fac.setMountpointRoot(testcaseRoot);
+				} catch (NoSuchMethodError e) {
+					// Some versions of KNIME do not have this method
+					// TODO dont just silently ignore
+				}
+				return fac.createContext();
+			}
+		};
 
-        WorkflowLoadResult loadRes = WorkflowManager.loadProject(workflowDir, new ExecutionMonitor(), loadHelper);
-        if ((loadRes.getType() == LoadResultEntryType.Error)
-            || ((loadRes.getType() == LoadResultEntryType.DataLoadError) && loadRes.getGUIMustReportDataLoadErrors())) {
-        	collector.addError(new Throwable(loadRes.getFilteredError("", LoadResultEntryType.Error)));
-        }
-        if (runConfig.isCheckForLoadWarnings() && loadRes.hasWarningEntries()) {
-        	collector.addError(new Throwable(loadRes.getFilteredError("", LoadResultEntryType.Warning)));
-        }
+		WorkflowLoadResult loadRes = WorkflowManager.loadProject(workflowDir, new ExecutionMonitor(), loadHelper);
+		if ((loadRes.getType() == LoadResultEntryType.Error)
+				|| ((loadRes.getType() == LoadResultEntryType.DataLoadError)
+						&& loadRes.getGUIMustReportDataLoadErrors())) {
+			collector.addError(new Throwable(loadRes.getFilteredError("", LoadResultEntryType.Error)));
+		}
+		if (runConfig.isCheckForLoadWarnings() && loadRes.hasWarningEntries()) {
+			collector.addError(new Throwable(loadRes.getFilteredError("", LoadResultEntryType.Warning)));
+		}
 
-        WorkflowManager wfm = loadRes.getWorkflowManager();
-        wfm.addWorkflowVariables(true, runConfig.getFlowVariables());
-        return wfm;
-    }
+		WorkflowManager wfm = loadRes.getWorkflowManager();
+		wfm.addWorkflowVariables(true, runConfig.getFlowVariables());
+		return wfm;
+	}
 }
