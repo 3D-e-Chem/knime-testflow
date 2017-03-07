@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test Knime workflows from a Junit test
 Bundle-SymbolicName: nl.esciencecenter.e3dchem.knime.testing.plugin;singleton:=true
-Bundle-Version: 1.0.1
+Bundle-Version: 1.0.2.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Netherlands eScience Center
 Require-Bundle: org.knime.workbench.repository;bundle-version="[3.1.0,4.0.0)",

@@ -126,9 +126,8 @@ During import the Tycho Eclipse providers must be installed.
 
 # New release
 
-1. Update versions in pom files with `mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=<version>` command.
-2. Manually update version of "source" feature in `p2/category.xml` file.
-3. Commit and push changes
+1. Update versions in pom files with `mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=<version>-SNAPSHOT` command.
+2. Commit and push changes
 3. Create package with `mvn package`, will create update site in `p2/target/repository`
 4. Append new release to an update site
   1. Make clone of an update site repo
