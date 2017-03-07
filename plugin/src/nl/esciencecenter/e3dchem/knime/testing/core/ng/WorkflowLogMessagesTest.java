@@ -187,4 +187,8 @@ public class WorkflowLogMessagesTest {
             }
         }
     }
+
+	public void aboutToStop() {
+		Logger.getRootLogger().removeAppender(m_logAppender);
+	}
 }

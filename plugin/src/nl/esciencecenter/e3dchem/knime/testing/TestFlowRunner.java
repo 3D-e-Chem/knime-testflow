@@ -83,9 +83,7 @@ public class TestFlowRunner {
 
 		WorkflowLogMessagesTest workflowLogMessagesTest;
 		workflowLogMessagesTest = new WorkflowLogMessagesTest();
-		if (m_runConfiguration.isCheckLogMessages()) {
-			workflowLogMessagesTest.aboutToStart();
-		}
+		workflowLogMessagesTest.aboutToStart();
 
 		WorkflowUncaughtExceptionsTest workflowUncaughtExceptionsTest = new WorkflowUncaughtExceptionsTest(workflowName,
 				monitor, m_context);
@@ -151,6 +149,8 @@ public class TestFlowRunner {
 		// WorkflowLogMessagesTest
 		if (m_runConfiguration.isCheckLogMessages()) {
 			workflowLogMessagesTest.run(collector, m_context.getTestflowConfiguration());
+		} else {
+			workflowLogMessagesTest.aboutToStop();
 		}
 
 		// WorkflowUncaughtExceptionsTest

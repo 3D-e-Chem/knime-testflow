@@ -5,7 +5,13 @@ The file is formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
 
+### Fixes
+
+- Disabling check log message will leak log into next test (#5)
+
 ## [1.0.1] - 2017-01-31
+
+### Fixes
 
 - Workaround for OSX SWT issues (#3)
 
