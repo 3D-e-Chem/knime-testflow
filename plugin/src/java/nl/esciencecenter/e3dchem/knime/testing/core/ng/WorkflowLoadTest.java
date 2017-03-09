@@ -49,8 +49,6 @@ package nl.esciencecenter.e3dchem.knime.testing.core.ng;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.junit.rules.ErrorCollector;
 import org.knime.core.node.CanceledExecutionException;
