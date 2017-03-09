@@ -123,16 +123,7 @@ public class WorkflowLoadTest extends WorkflowTest {
 			@Override
 			public WorkflowContext getWorkflowContext() {
 				WorkflowContext.Factory fac = new WorkflowContext.Factory(workflowDir);
-				try {
-					fac.setMountpointRoot(testcaseRoot);
-				} catch (NoSuchMethodError e) {
-					e.printStackTrace();
-					Method[] methods = fac.getClass().getMethods();
-					System.err.println(methods);
-					// Some versions of KNIME do not have this method
-					// TODO dont just silently ignore
-					throw e;
-				}
+				fac.setMountpointRoot(testcaseRoot);
 				return fac.createContext();
 			}
 		};
