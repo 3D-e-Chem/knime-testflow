@@ -49,6 +49,8 @@ package nl.esciencecenter.e3dchem.knime.testing.core.ng;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.junit.rules.ErrorCollector;
 import org.knime.core.node.CanceledExecutionException;
@@ -121,7 +123,17 @@ public class WorkflowLoadTest extends WorkflowTest {
 			@Override
 			public WorkflowContext getWorkflowContext() {
 				WorkflowContext.Factory fac = new WorkflowContext.Factory(workflowDir);
-				fac.setMountpointRoot(testcaseRoot);
+				try {
+					fac.setMountpointRoot(testcaseRoot);
+				} catch (NoSuchMethodError e) {
+					e.printStackTrace();
+					Method[] m = fac.getClass().getMethods();
+					System.err.println("Available methods");
+					for (Method method : m) {
+						System.err.println(method.toString());
+					}
+					throw e;
+				}
 				return fac.createContext();
 			}
 		};
