@@ -123,17 +123,7 @@ public class WorkflowLoadTest extends WorkflowTest {
 			@Override
 			public WorkflowContext getWorkflowContext() {
 				WorkflowContext.Factory fac = new WorkflowContext.Factory(workflowDir);
-				try {
-					fac.setMountpointRoot(testcaseRoot);
-				} catch (NoSuchMethodError e) {
-					e.printStackTrace();
-					Method[] m = fac.getClass().getMethods();
-					System.err.println("Available methods");
-					for (Method method : m) {
-						System.err.println(method.toString());
-					}
-					throw e;
-				}
+				fac.setMountpointRoot(testcaseRoot);
 				return fac.createContext();
 			}
 		};

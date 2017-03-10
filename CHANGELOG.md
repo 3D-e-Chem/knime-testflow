@@ -7,6 +7,10 @@ The file is formatted as described on http://keepachangelog.com/.
 
 ## [1.0.2] - 2017-03-07
 
+### Changes
+
+- Requires KNIME 3.3
+
 ### Fixes
 
 - Disabling check log message will leak log into next test (#5)
