@@ -9,6 +9,6 @@ authors:
   family-names: Verhoeven
   affiliation: Nederlands eScience Center
 version: 1.0.0
-date-released: '2016-06-17'
+date-released: 2016-06-17
 repository-code: https://github.com/3D-e-Chem/knime-testflow
 license: GPL-3.0
