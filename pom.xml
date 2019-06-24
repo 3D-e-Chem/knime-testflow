@@ -33,6 +33,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/3D-e-Chem/knime-testflow.git</tycho.scmUrl>
+		<target.file>KNIME-AP-4.0</target.file>
 	</properties>
 	<build>
 		<plugins>
@@ -80,8 +81,9 @@
 					<target>
 						<artifact>
 							<groupId>nl.esciencecenter.e3dchem.knime.testing</groupId>
-							<artifactId>KNIME-AP</artifactId>
+							<artifactId>nl.esciencecenter.e3dchem.knime.testing.targetplatform</artifactId>
 							<version>${project.version}</version>
+							<classifier>${target.file}</classifier>
 						</artifact>
 					</target>
 				</configuration>
@@ -196,6 +198,6 @@
 		<module>plugin</module>
 		<module>p2</module>
 		<module>tests</module>
-		<module>target-definition</module>
+		<module>targetplatform</module>
 	</modules>
 </project>
