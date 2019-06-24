@@ -81,7 +81,7 @@
 						<artifact>
 							<groupId>nl.esciencecenter.e3dchem.knime.testing</groupId>
 							<artifactId>KNIME-AP</artifactId>
-							<version>1.0.2-SNAPSHOT</version>
+							<version>${project.version}</version>
 						</artifact>
 					</target>
 				</configuration>
