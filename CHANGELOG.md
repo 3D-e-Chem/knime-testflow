@@ -7,7 +7,7 @@ The file is formatted as described on http://keepachangelog.com/.
 
 ### Changes
 
-- Requires KNIME 4.0
+- Requires KNIME 4.0 [#7](https://github.com/3D-e-Chem/knime-testflow/issues/7)
 
 ## [1.0.2] - 2017-03-07
 
