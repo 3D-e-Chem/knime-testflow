@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 The file is formatted as described on http://keepachangelog.com/.
 
+## [1.0.4] - 2023-07-18
+
+- Builds by default with KNIME 4.7, can be configured to build with KNIME 5.1 [#10](https://github.com/3D-e-Chem/knime-testflow/issues/10)
+
 ## [Unreleased]
 
 ### Changes
