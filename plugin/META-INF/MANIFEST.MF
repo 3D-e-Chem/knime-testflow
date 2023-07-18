@@ -5,7 +5,7 @@ Bundle-SymbolicName: nl.esciencecenter.e3dchem.knime.testing.plugin;singleton:=t
 Bundle-Version: 1.0.3.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Netherlands eScience Center
-Require-Bundle: org.knime.workbench.repository;bundle-version="[4.0.0,5.0.0)",
+Require-Bundle: org.knime.workbench.repository;bundle-version="[4.0.0,6.0.0)",
  org.knime.workbench.core;bundle-version="[4.0.0,6.0.0)",
  org.knime.testing;bundle-version="[4.0.0,6.0.0)",
  org.junit;bundle-version="[4.8.0,6.0.0)",
