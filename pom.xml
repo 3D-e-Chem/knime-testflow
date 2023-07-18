@@ -30,12 +30,12 @@
 		<tycho.version>2.7.5</tycho.version>
 		<tycho.extras.version>2.7.5</tycho.extras.version>
 		<tycho.test.jvmArgs>-Xmx512m</tycho.test.jvmArgs>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
         <maven.compiler.version>3.10.1</maven.compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/3D-e-Chem/knime-testflow.git</tycho.scmUrl>
-		<target.file>KNIME-AP-4.0</target.file>
+		<target.file>KNIME-AP-4.7</target.file>
 		<!-- following required if running mvn from JDK17 -->
 		<knime.ini.testArgs>--add-opens=java.security.jgss/sun.security.jgss.krb5=ALL-UNNAMED
                             --add-opens=java.base/sun.security.ssl=ALL-UNNAMED
