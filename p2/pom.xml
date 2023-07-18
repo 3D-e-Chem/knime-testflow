@@ -24,7 +24,7 @@
                     <configuration>
                         <source>
                             <repository>
-                                <url>${project.build.directory}/repository</url>
+                                <url>${project.build.directory}/repository/${knime.version}</url>
                             </repository>
                         </source>
                         <destination>${target.update.site}</destination>

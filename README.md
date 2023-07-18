@@ -102,18 +102,24 @@ script: xvfb-run mvn verify -B
 mvn verify
 ```
 
-An Eclipse update site will be made in `p2/target/repository` repository.
+An Eclipse update site will be made in `p2/target/repository/4.7/` repository.
 The update site can be used to perform a local installation.
+By default this will compile against KNIME AP v4.7, using the [KNIME-AP-4.7](targetPlatform/KNIME-AP-4.7.target) file.
+To build instead for KNIME AP v5.1, use:
+```
+mvn verify -Dknime.version=5.1
+```
+(In this case, the repository will be located in `p2/target/repository/5.1/`)
 
 # Development
 
 Steps to get development environment setup based on https://github.com/knime/knime-sdk-setup#sdk-setup:
 
-1. Install Java 8
+1. Install Java 17
 2. Install Eclipse for [RCP and RAP developers](https://www.eclipse.org/downloads/packages/release/2018-12/r/eclipse-ide-rcp-and-rap-developers)
-3. Configure Java 8 inside Eclipse Window > Preferences > Java > Installed JREs
+3. Configure Java 17 inside Eclipse Window > Preferences > Java > Installed JREs
 4. Import this repo as an Existing Maven project
-5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (4.0) - nl.esciencecenter.e3dchem.knime.testing.targetplatform/KNIME-AP-4.0.target` target definition.
+5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (4.7) - nl.esciencecenter.e3dchem.knime.testing.targetplatform/KNIME-AP-4.7.target` target definition.
 
 During import the Tycho Eclipse providers must be installed.
 

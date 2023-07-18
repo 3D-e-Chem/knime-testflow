@@ -35,7 +35,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/3D-e-Chem/knime-testflow.git</tycho.scmUrl>
-		<target.file>KNIME-AP-4.7</target.file>
+		<knime.version>4.7</knime.version>
+		<target.file>KNIME-AP-${knime.version}</target.file>
 		<!-- following required if running mvn from JDK17 -->
 		<knime.ini.testArgs>--add-opens=java.security.jgss/sun.security.jgss.krb5=ALL-UNNAMED
                             --add-opens=java.base/sun.security.ssl=ALL-UNNAMED
