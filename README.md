@@ -102,14 +102,14 @@ script: xvfb-run mvn verify -B
 mvn verify
 ```
 
-An Eclipse update site will be made in `p2/target/repository/4.7/` repository.
+An Eclipse update site will be made in `p2/target/repository/` repository.
 The update site can be used to perform a local installation.
 By default this will compile against KNIME AP v4.7, using the [KNIME-AP-4.7](targetPlatform/KNIME-AP-4.7.target) file.
 To build instead for KNIME AP v5.1, use:
 ```
 mvn verify -Dknime.version=5.1
 ```
-(In this case, the repository will be located in `p2/target/repository/5.1/`)
+
 
 # Development
 
