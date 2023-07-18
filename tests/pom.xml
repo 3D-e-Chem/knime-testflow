@@ -47,13 +47,15 @@
 					</dependency>
 				</dependencies>
 				<executions>
-					<execution>
+					<<excludes>
+						<>
 						<id>jacoco-report</id>
 						<phase>verify</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
-						<configuration>
+						<includes>
+						</conf>
 							<target>
 								<property name="source-location" location="../" />
 								<taskdef name="jacoco-report" classname="org.jacoco.ant.ReportTask"
@@ -97,6 +99,9 @@
 									</else>
 								</if>
 							</target>
+							<excludes>
+								<exclude>**/*.jar</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
