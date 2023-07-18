@@ -47,8 +47,6 @@
 					</dependency>
 				</dependencies>
 				<executions>
-					<<excludes>
-						<>
 						<id>jacoco-report</id>
 						<phase>verify</phase>
 						<goals>
