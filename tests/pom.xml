@@ -47,6 +47,7 @@
 					</dependency>
 				</dependencies>
 				<executions>
+					<execution>
 						<id>jacoco-report</id>
 						<phase>verify</phase>
 						<goals>
