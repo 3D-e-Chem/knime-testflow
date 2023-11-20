@@ -38,7 +38,7 @@ org.knime.testing;bundle-version="[4.0.0,6.0.0)",
 
 ## 3. Add test workflow
 
-Create a test workflow as described in the "Testing Framework" manual that you get when you install the "KNIME Testing Framework" (look in plugins/org.knime.testing_x.y.z/doc/Regression Tests.pdf).
+Create a test workflow as described in the ["Testing Framework" manual](https://github.com/knime/knime-core/blob/bf6f8c378694d5a435ef29cb469a7ced26ffca9f/org.knime.testing/doc/Regression%20Tests.pdf).
 
 Place the workflow as a directory inside the `src/knime/` directory of the tests module.
 
@@ -82,13 +82,13 @@ mvn verify
 
 The test results can be found in the `T E S T S` section of the standard output.
 
-## 6. Add GUI testing to Travis-CI.
+## 6. Add GUI testing on GitHub actions.
 
 As you might have noticed during the previouse step, running test will quickly show some dialogs and windows.
-To show graphical user elements an X-server is required, sadly Travis-CI does not run an X-server. 
-A temporary X-server can be run with Xvfb, which is luckily available on all Travis-CI environments.
+To show graphical user elements an X-server is required, sadly GitHub actions does not run an X-server.
+A temporary X-server can be run with Xvfb, which is luckily available on all GitHub actions environments.
 
-Prepend `xvfb-run` before the `mvn verify` command in the `.travis.yml` file.
+Prepend `xvfb-run` before the `mvn verify` command in the `.github/workflows/*.yml` file.
 
 For example
 ```
@@ -103,7 +103,7 @@ mvn verify
 
 An Eclipse update site will be made in `p2/target/repository/` repository.
 The update site can be used to perform a local installation.
-By default this will compile against KNIME AP v5.1, using the [KNIME-AP-5..17](targetPlatform/KNIME-AP-5.1.target) file.
+By default this will compile against KNIME AP v5.1, using the [KNIME-AP-5.1](targetPlatform/KNIME-AP-5.1.target) file.
 To build instead for KNIME AP v4.7, use:
 ```
 mvn verify -Dknime.version=4.7

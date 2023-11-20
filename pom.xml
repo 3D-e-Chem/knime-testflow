@@ -18,8 +18,8 @@
 		<url>https://github.com/3D-e-Chem/knime-testflow/issues</url>
 	</issueManagement>
 	<ciManagement>
-		<system>Travis CI</system>
-		<url>http://travis-ci.org/3D-e-Chem/knime-testflow</url>
+		<system>GitHub Actions</system>
+		<url>https://github.com/3D-e-Chem/knime-testflow/actions</url>
 	</ciManagement>
 
 	<prerequisites>
