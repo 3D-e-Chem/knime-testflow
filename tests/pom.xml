@@ -85,6 +85,7 @@
 													</structure>
 													<html destdir="${project.basedir}/target/jacoco/report" />
 													<xml destfile="${project.basedir}/target/jacoco/report/jacoco.xml" />
+													<csv destfile="${project.basedir}/target/jacoco/report/jacoco.csv" />
 												</jacoco-report>
 											</try>
 											<catch>

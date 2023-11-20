@@ -1,6 +1,7 @@
 Test Knime workflows from a Junit test.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba09652161144d9abbe4827fd16bbaec)](https://www.codacy.com/app/3D-e-Chem/knime-testflow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3D-e-Chem/knime-testflow&amp;utm_campaign=Badge_Grade)
+[![Java CI with Maven](https://github.com/3D-e-Chem/knime-testflow/actions/workflows/ci.yml/badge.svg)](https://github.com/3D-e-Chem/knime-testflow/actions/workflows/ci.yml)
+![Coverage](.github/badges/jacoco.svg)
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.55805.svg)](http://dx.doi.org/10.5281/zenodo.55805)
 
 The Knime Testing Framework can run a test workflow either:
