@@ -76,7 +76,7 @@ public class TestFlowRunnerTest {
 		File workflow = new File("src/knime/messages");
 		List<String> expected = new ArrayList<String>();
 		expected.add(
-				"Node 'Table Creator 0:2' has unexpected warning message: expected 'This is not the warning message you are looking for.', got 'Node created an empty data table.'");
+				"Node 'Table Creator 3:2' has unexpected warning message: expected 'This is not the warning message you are looking for.', got 'Node created an empty data table.'");
 		expected.add("Expected WARN log message 'This is not the warning message you are looking for.' not found");
 
 		assertWorkflowErrors(workflow, expected);

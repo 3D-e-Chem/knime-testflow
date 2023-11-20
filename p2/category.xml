@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin" version="1.0.3.qualifier">
+   <bundle id="nl.esciencecenter.e3dchem.knime.testing.plugin" version="1.0.4.qualifier">
       <category name="nl.esciencecenter.3D-e-Chem"/>
    </bundle>
    <category-def name="nl.esciencecenter.3D-e-Chem" label="KNIME 3D-e-Chem Contributions">

@@ -1,6 +1,5 @@
 Test Knime workflows from a Junit test.
 
-[![Build Status](https://travis-ci.org/3D-e-Chem/knime-testflow.svg?branch=master)](https://travis-ci.org/3D-e-Chem/knime-testflow)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba09652161144d9abbe4827fd16bbaec)](https://www.codacy.com/app/3D-e-Chem/knime-testflow?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3D-e-Chem/knime-testflow&amp;utm_campaign=Badge_Grade)
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.55805.svg)](http://dx.doi.org/10.5281/zenodo.55805)
 
@@ -34,12 +33,12 @@ To make use of in a Tycho based project add to the `<repositories>` tag of the `
 In the `Require-Bundle` attribute of the `META-INF/MANIFEST.MF` of the tests module add
 ```
 nl.esciencecenter.e3dchem.knime.testing.plugin;bundle-version="[1.0.0,2.0.0)",
-org.knime.testing;bundle-version="[4.0.0,5.0.0)",
+org.knime.testing;bundle-version="[4.0.0,6.0.0)",
 ```
 
 ## 3. Add test workflow
 
-Create a test workflow as described in the "Testing Framework" manual that you get when you install the "KNIME Testing Framework" (look in plugins/org.knime.testing_x.y.z/doc/Regression Tests.pdf).
+Create a test workflow as described in the ["Testing Framework" manual](https://github.com/knime/knime-core/blob/bf6f8c378694d5a435ef29cb469a7ced26ffca9f/org.knime.testing/doc/Regression%20Tests.pdf).
 
 Place the workflow as a directory inside the `src/knime/` directory of the tests module.
 
@@ -83,13 +82,13 @@ mvn verify
 
 The test results can be found in the `T E S T S` section of the standard output.
 
-## 6. Add GUI testing to Travis-CI.
+## 6. Add GUI testing on GitHub actions.
 
 As you might have noticed during the previouse step, running test will quickly show some dialogs and windows.
-To show graphical user elements an X-server is required, sadly Travis-CI does not run an X-server. 
-A temporary X-server can be run with Xvfb, which is luckily available on all Travis-CI environments.
+To show graphical user elements an X-server is required, sadly GitHub actions does not run an X-server.
+A temporary X-server can be run with Xvfb, which is luckily available on all GitHub actions environments.
 
-Prepend `xvfb-run` before the `mvn verify` command in the `.travis.yml` file.
+Prepend `xvfb-run` before the `mvn verify` command in the `.github/workflows/*.yml` file.
 
 For example
 ```
@@ -102,18 +101,24 @@ script: xvfb-run mvn verify -B
 mvn verify
 ```
 
-An Eclipse update site will be made in `p2/target/repository` repository.
+An Eclipse update site will be made in `p2/target/repository/` repository.
 The update site can be used to perform a local installation.
+By default this will compile against KNIME AP v5.1, using the [KNIME-AP-5.1](targetPlatform/KNIME-AP-5.1.target) file.
+To build instead for KNIME AP v4.7, use:
+```
+mvn verify -Dknime.version=4.7
+```
+
 
 # Development
 
 Steps to get development environment setup based on https://github.com/knime/knime-sdk-setup#sdk-setup:
 
-1. Install Java 8
+1. Install Java 17
 2. Install Eclipse for [RCP and RAP developers](https://www.eclipse.org/downloads/packages/release/2018-12/r/eclipse-ide-rcp-and-rap-developers)
-3. Configure Java 8 inside Eclipse Window > Preferences > Java > Installed JREs
+3. Configure Java 17 inside Eclipse Window > Preferences > Java > Installed JREs
 4. Import this repo as an Existing Maven project
-5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (4.0) - nl.esciencecenter.e3dchem.knime.testing.targetplatform/KNIME-AP-4.0.target` target definition.
+5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (5.1) - nl.esciencecenter.e3dchem.knime.testing.targetplatform/KNIME-AP-5.1.target` target definition.
 
 During import the Tycho Eclipse providers must be installed.
 
