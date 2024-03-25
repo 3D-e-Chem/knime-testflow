@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 The file is formatted as described on http://keepachangelog.com/.
 
+## [1.0.5] - 2024-03-25
+
+### Fixes
+
+* IllegalArgumentException can be thrown by WorkflowTest#getHeapUsage() when heap is full ([#14](https://github.com/3D-e-Chem/knime-testflow/issues/14))
+
 ## [1.0.4] - 2023-11-20
 
 ### Changes
